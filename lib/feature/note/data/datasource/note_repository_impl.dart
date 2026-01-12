@@ -2,19 +2,17 @@ import 'package:cleanarchitecture_noteapp/feature/note/data/datasource/note_loca
 import 'package:cleanarchitecture_noteapp/feature/note/domain/respository/note_respository.dart';
 import 'package:cleanarchitecture_noteapp/feature/note/model/note.dart';
 
-class NoteRepositoryImpl implements NoteRespository {
+class NoteRepositoryImpl implements NoteRepository {
   final NoteLocalDatasource nlc;
-  NoteRepositoryImpl({
-    required this.nlc,
-  });
+  NoteRepositoryImpl({required this.nlc});
 
   @override
-  Future<Note> createNote(String title, String content) async{
+  Future<Note> createNote(String title, String content) async {
     return await nlc.createNote(title, content);
   }
 
   @override
-  Future<void> deleteNoteById(int id) async{
+  Future<void> deleteNoteById(int id) async {
     await nlc.deleteNoteById(id);
   }
 
@@ -34,5 +32,4 @@ class NoteRepositoryImpl implements NoteRespository {
   Future<Note> updateNoteById(int id, String title, String content) async {
     return await nlc.updateNoteById(id, title, content);
   }
-  
 }

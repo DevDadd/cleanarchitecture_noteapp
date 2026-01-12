@@ -1,4 +1,5 @@
 import 'package:cleanarchitecture_noteapp/feature/note/data/datasource/note_repository_impl.dart';
+import 'package:cleanarchitecture_noteapp/feature/note/presentation/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -28,9 +29,8 @@ class MyApp extends StatelessWidget {
     return BlocProvider(
       create: (_) => NoteCubit(noteUsecase),
       child: const MaterialApp(
-        home: Scaffold(
-          body: Center(child: Text('Note App')),
-        ),
+        debugShowCheckedModeBanner: false,
+        home: HomePage(),
       ),
     );
   }

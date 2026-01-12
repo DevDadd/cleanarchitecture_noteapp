@@ -1,13 +1,10 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:cleanarchitecture_noteapp/feature/note/data/datasource/note_repository_impl.dart';
 import 'package:cleanarchitecture_noteapp/feature/note/domain/respository/note_respository.dart';
 import 'package:cleanarchitecture_noteapp/feature/note/model/note.dart';
 
 class NoteUsecase {
-  final NoteRespository nrp;
-  NoteUsecase({
-    required this.nrp,
-  });
+  final NoteRepository nrp;
+  NoteUsecase({required this.nrp});
   Future<List<Note>> getAllNotes() {
     return nrp.getAllNotes();
   }
@@ -16,11 +13,11 @@ class NoteUsecase {
     return nrp.getNoteById(id);
   }
 
-  Future<void> deleteNoteById(int id){
+  Future<void> deleteNoteById(int id) {
     return nrp.deleteNoteById(id);
   }
 
-  Future<Note> createNote(String title, String content){
+  Future<Note> createNote(String title, String content) {
     return nrp.createNote(title, content);
   }
 

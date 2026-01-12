@@ -1,6 +1,6 @@
 import 'package:cleanarchitecture_noteapp/feature/note/model/note.dart';
 
-abstract class NoteRespository  {
+abstract class NoteRepository {
   Future<List<Note>> getAllNotes();
   Future<Note> getNoteById(int id);
   Future<void> deleteNoteById(int id);

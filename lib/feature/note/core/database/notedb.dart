@@ -6,9 +6,9 @@ class DatabaseService {
   DatabaseService._constructor();
   static Database? _db;
   final String databaseTableName = "notes";
-  final String _idColumnName = "id";
-  final String _titleColumnName = "title";
-  final String _contentColumnName = "content";
+  final String idColumnName = "id";
+  final String titleColumnName = "title";
+  final String contentColumnName = "content";
   Future<Database> get database async {
     if (_db != null) {
       return _db!;
@@ -26,9 +26,9 @@ class DatabaseService {
       onCreate: (db, version) async {
         await db.execute('''
     CREATE TABLE $databaseTableName (
-      $_idColumnName INTEGER PRIMARY KEY AUTOINCREMENT,
-      $_titleColumnName TEXT NOT NULL,
-      $_contentColumnName TEXT NOT NULL
+      $idColumnName INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+      $titleColumnName TEXT NOT NULL,
+      $contentColumnName TEXT NOT NULL
     )
   ''');
       },
