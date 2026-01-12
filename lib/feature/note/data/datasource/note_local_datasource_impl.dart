@@ -10,7 +10,7 @@ class NoteLocalDatasourceImpl implements NoteLocalDatasource {
   @override
   Future<List<Map<String, dynamic>>> getAllNotes() async {
     final db = await _db.database;
-    return db.query("notes");
+    return db.query(_db.databaseTableName);
   }
 
   @override
@@ -27,22 +27,41 @@ class NoteLocalDatasourceImpl implements NoteLocalDatasource {
   }
 
   @override
-  Future<void> createNote(String title, String content) async {
+  Future<Note> createNote(String title, String content) async {
     final db = await _db.database;
-    await db.insert("notes", {
-      title: 'title',
-      content: 'content',
+    final id = await db.insert("notes", {
+      'title' : title,
+      'content': content,
     }, conflictAlgorithm: ConflictAlgorithm.replace);
+    return Note(
+      id: id,
+      title: title,
+      content: content,
+    );
   }
 
   @override
-  Future<void> updateNoteById(int id, String title, String content) async {
+  Future<Note> updateNoteById(int id, String title, String content) async {
     final db = await _db.database;
+
     await db.update(
-      "notes",
-      {title: 'title', content: 'content'},
+      'notes',
+      {'title': title, 'content': content},
       where: 'id = ?',
       whereArgs: [id],
     );
+
+    final result = await db.query(
+      'notes',
+      where: 'id = ?',
+      whereArgs: [id],
+      limit: 1,
+    );
+
+    if (result.isEmpty) {
+      throw Exception('Note not found after update');
+    }
+
+    return Note.fromJson(result.first);
   }
 }

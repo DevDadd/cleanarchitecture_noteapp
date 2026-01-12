@@ -5,7 +5,7 @@ class DatabaseService {
   static final DatabaseService instance = DatabaseService._constructor();
   DatabaseService._constructor();
   static Database? _db;
-  final String _databaseTableName = "notes";
+  final String databaseTableName = "notes";
   final String _idColumnName = "id";
   final String _titleColumnName = "title";
   final String _contentColumnName = "content";
@@ -23,12 +23,14 @@ class DatabaseService {
     final database = await openDatabase(
       databasePath,
       version: 1,
-      onCreate: (db, version) => {
-        ''' CREATE TABLE $_databaseTableName
-        $_idColumnName INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        $_titleColumnName TEXT NOT NULL,
-        $_contentColumnName TEXT NOT NULL
-''',
+      onCreate: (db, version) async {
+        await db.execute('''
+    CREATE TABLE $databaseTableName (
+      $_idColumnName INTEGER PRIMARY KEY AUTOINCREMENT,
+      $_titleColumnName TEXT NOT NULL,
+      $_contentColumnName TEXT NOT NULL
+    )
+  ''');
       },
     );
     return database;
