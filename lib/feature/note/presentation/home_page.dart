@@ -1,6 +1,7 @@
 import 'package:cleanarchitecture_noteapp/feature/note/cubit/note_cubit.dart';
 import 'package:cleanarchitecture_noteapp/feature/note/cubit/note_state.dart';
 import 'package:cleanarchitecture_noteapp/feature/note/presentation/add_note_page.dart';
+import 'package:cleanarchitecture_noteapp/feature/note/presentation/note_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -63,7 +64,15 @@ class _HomePageState extends State<HomePage> {
                       ),
                       SizedBox(width: 10),
                       IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  NoteDetailPage(id: note.id!),
+                            ),
+                          );
+                        },
                         icon: Icon(Icons.density_small_rounded),
                       ),
                     ],
